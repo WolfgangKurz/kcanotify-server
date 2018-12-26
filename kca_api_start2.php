@@ -70,4 +70,3 @@ switch($method){
 			echo $x;
 		break;
 }
-
