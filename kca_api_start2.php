@@ -15,8 +15,8 @@ function get_apistart2($var) {
 
 function v_cmp($a, $b) {
 	if ($a === $b) return 0;
-	$a_arr = array_map(intval, explode(".", str_replace("api_start2_", "", $a)));
-	$b_arr = array_map(intval, explode(".", str_replace("api_start2_", "", $b)));
+	$a_arr = array_map('intval', explode(".", str_replace("api_start2_", "", $a)));
+	$b_arr = array_map('intval', explode(".", str_replace("api_start2_", "", $b)));
 	$a_cnt = count($a_arr);
 	$b_cnt = count($b_arr);
 	$min_len = min($a_cnt, $b_cnt);
@@ -29,12 +29,12 @@ function v_cmp($a, $b) {
 $api_start2_dir = CUR_DIR . '/api_start2/';
 
 $v = $_GET['v'];
-$method = $_GET['method'];
+$method = isset($_GET['method']) ? $_GET['method'] : null;
 
 switch($v){
 	case 'recent':
 		$files = array_filter(scandir($api_start2_dir), 'get_apistart2');
-		usort($files, v_cmp);
+		usort($files, 'v_cmp');
 
 		$filename = $files[0];
 		$v = str_replace('api_start2_', '', $filename);
@@ -70,3 +70,4 @@ switch($method){
 			echo $x;
 		break;
 }
+
